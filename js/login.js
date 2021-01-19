@@ -13,7 +13,7 @@ $(document).ready(function(){
                 success: function(data, status){
                     //alert("Data: " + data + "\nStatus: " + status);
                     if(data){ 
-                        window.location.replace("./welcome.html");
+                        window.location.replace("./dashboard.html");
                     } else {
                         $("#error").css("display","block");
                     }
