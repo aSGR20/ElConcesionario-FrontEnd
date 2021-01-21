@@ -23,13 +23,13 @@ $.getJSON('https://localhost:44342/venta').done( function (results) {
     }
   }
 
-  // Variable que suma los coches vendidos en las fechas agropadas
+  // Variable que suma los precios de las fechas repetidas
   var uniqueArrayData = [];
   for (x = 0; x < uniqueArrayLabels.length; x++){
     uniqueArrayData[x] = 0;
     for (z = 0; z < data.length; z++){
       if (uniqueArrayLabels[x] == labels[z]){
-        uniqueArrayData[x]++;
+        uniqueArrayData[x] += data[z];
       }
     }
   }
@@ -44,16 +44,16 @@ $.getJSON('https://localhost:44342/venta').done( function (results) {
   var ctx = document.getElementById('myChart')
 
   var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'line',
     data: {
       labels: uniqueArrayLabels,
       datasets: [{
         data: uniqueArrayData,
         lineTension: 0,
-        backgroundColor: '#E76F51',
+        backgroundColor: 'transparent',
         borderColor: '#E76F51',
         borderWidth: 4,
-        pointBackgroundColor: '#007bff'
+        pointBackgroundColor: '#E76F51'
       }]
     },
     options: {
@@ -76,7 +76,7 @@ $(document).ready(function(){
 	//Según se cargue el HTML, consume un servicio GET para obtener
 	//Todos los usuarios y los rellena en la tabla vacía results.
 	$.ajax({
-        url: 'https://localhost:44342/vehiculo',
+        url: 'https://localhost:44342/venta',
         dataType: 'json',
         type: 'get',
         contentType: 'application/json',
@@ -90,12 +90,13 @@ $(document).ready(function(){
 		            $('<td>').text(item.marca),
                 $('<td>').text(item.tipo),
                 $('<td>').text(item.precio),
-                $('<td>').text(item.fechaEntrada),
-                $('<td>').text(item.infAdicional)
+                $('<td>').text(item.plazo),
+		            $('<td>').text(item.fecha)
 		        ); //.appendTo('#records_table');
-		        console.log($tr.wrap('<p>').html());  
-		        $('#vehiculos').append($tr);
+		        console.log($tr.wrap('<p>').html());
+		        $('#ventas').append($tr);
 		    });
+			
       	}
     });
 });
